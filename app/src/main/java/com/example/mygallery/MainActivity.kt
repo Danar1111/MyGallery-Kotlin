@@ -33,34 +33,25 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-//        val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.main_toolbar)
-//        setSupportActionBar(toolbar)
-//        supportActionBar?.setDisplayShowTitleEnabled(false)
-
-        // Inisialisasi shared preferences
         sharedPrefs = getSharedPreferences("gallery", MODE_PRIVATE)
 
-        // Load data dari SharedPreferences
         loadSavedImages()
 
-        // Setup RecyclerView
         recyclerView = findViewById(R.id.recycler_view)
         recyclerView.layoutManager = GridLayoutManager(this, 2)
         adapter = ImageAdapter(this, dynamicImageList)
         recyclerView.adapter = adapter
 
-        // Tombol FAB
         val fabMain: View = findViewById(R.id.fab_main)
         val fabUpload: View = findViewById(R.id.fab_upload)
         val fabCamera: View = findViewById(R.id.fab_camera)
         val fabDelete: View = findViewById(R.id.fab_delete)
+        fabDelete.visibility = View.GONE
 
-        // FAB hapus muncul kalau ada yang dipilih
         adapter.setOnSelectionChangeListener { selectedCount ->
             fabDelete.visibility = if (selectedCount > 0) View.VISIBLE else View.GONE
         }
 
-        // Tombol hapus gambar terpilih
         fabDelete.setOnClickListener {
             adapter.deleteSelectedItems()
             saveImages()
@@ -68,7 +59,6 @@ class MainActivity : AppCompatActivity() {
 
         fabMain.setOnClickListener {
             isFabOpen = !isFabOpen
-
             if (isFabOpen) {
                 animateFab(fabUpload, true, -120f)
                 animateFab(fabCamera, true, -220f)

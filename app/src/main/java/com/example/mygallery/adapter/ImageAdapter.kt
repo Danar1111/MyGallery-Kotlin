@@ -19,8 +19,6 @@ class ImageAdapter(
 ) : RecyclerView.Adapter<ImageAdapter.ImageViewHolder>() {
 
     private val selectedItems = mutableSetOf<Int>()
-    var isSelectionMode = false
-
     private var selectionChangeListener: ((Int) -> Unit)? = null
 
     inner class ImageViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -46,11 +44,10 @@ class ImageAdapter(
             .placeholder(R.drawable.ic_launcher_background)
             .into(holder.imageView)
 
-        // Highlight jika terpilih
         holder.overlay.visibility = if (selectedItems.contains(position)) View.VISIBLE else View.GONE
 
         holder.itemView.setOnClickListener {
-            if (isSelectionMode) {
+            if (selectedItems.isNotEmpty()) {
                 toggleSelection(position)
             } else {
                 val intent = Intent(context, DetailActivity::class.java)
@@ -60,7 +57,6 @@ class ImageAdapter(
         }
 
         holder.itemView.setOnLongClickListener {
-            isSelectionMode = true
             toggleSelection(position)
             true
         }
@@ -72,7 +68,9 @@ class ImageAdapter(
         } else {
             selectedItems.add(position)
         }
+
         notifyItemChanged(position)
+
         selectionChangeListener?.invoke(selectedItems.size)
     }
 
@@ -80,8 +78,9 @@ class ImageAdapter(
         val newList = imageList.filterIndexed { index, _ -> !selectedItems.contains(index) }
         imageList.clear()
         imageList.addAll(newList)
+
         selectedItems.clear()
-        isSelectionMode = false
+
         notifyDataSetChanged()
         selectionChangeListener?.invoke(0)
     }
