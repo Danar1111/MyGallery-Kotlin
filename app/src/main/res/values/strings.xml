@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">MyGallery</string>
+    <string name="fab_camera_desc">Ambil dari kamera</string>
+    <string name="fab_upload_desc">Pilih dari galeri</string>
+</resources>
