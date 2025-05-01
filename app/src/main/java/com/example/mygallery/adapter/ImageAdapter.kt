@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide
 import com.example.mygallery.DetailActivity
 import com.example.mygallery.R
 import com.example.mygallery.model.ImageItem
+<<<<<<< HEAD
 import android.widget.TextView
 
 
@@ -31,6 +32,16 @@ class ImageAdapter(
     }
 
 
+=======
+
+class ImageAdapter(private val imageList: List<ImageItem>) :
+    RecyclerView.Adapter<ImageAdapter.ImageViewHolder>() {
+
+    inner class ImageViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val imageView: ImageView = view.findViewById(R.id.image_view)
+    }
+
+>>>>>>> 4a15b87e79d9a8b2293744f55867230f8a243941
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_image, parent, false)
@@ -39,15 +50,19 @@ class ImageAdapter(
 
     override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
         val imageItem = imageList[position]
+<<<<<<< HEAD
         holder.label.text = "Photo ${position + 1}"
         holder.label.visibility = View.VISIBLE
 
+=======
+>>>>>>> 4a15b87e79d9a8b2293744f55867230f8a243941
 
         Glide.with(holder.imageView.context)
             .load(imageItem.imageUri)
             .placeholder(R.drawable.ic_launcher_background)
             .into(holder.imageView)
 
+<<<<<<< HEAD
         // Highlight jika terpilih
         holder.overlay.visibility = if (selectedItems.contains(position)) View.VISIBLE else View.GONE
 
@@ -94,3 +109,15 @@ class ImageAdapter(
 
     override fun getItemCount(): Int = imageList.size
 }
+=======
+        holder.imageView.setOnClickListener {
+            val context = holder.itemView.context
+            val intent = Intent(context, DetailActivity::class.java)
+            intent.putExtra("imageResId", imageItem.imageUri)
+            context.startActivity(intent)
+        }
+    }
+
+    override fun getItemCount(): Int = imageList.size
+}
+>>>>>>> 4a15b87e79d9a8b2293744f55867230f8a243941
