@@ -3,10 +3,7 @@ package com.example.mygallery
 import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Bitmap
-<<<<<<< HEAD
-=======
 import android.net.Uri
->>>>>>> 4a15b87e79d9a8b2293744f55867230f8a243941
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
@@ -30,24 +27,15 @@ class MainActivity : AppCompatActivity() {
     private val gson = Gson()
     private val PREF_KEY = "gallery_images"
     private var isFabOpen = false
-<<<<<<< HEAD
     private lateinit var adapter: ImageAdapter
-=======
->>>>>>> 4a15b87e79d9a8b2293744f55867230f8a243941
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-<<<<<<< HEAD
 //        val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.main_toolbar)
 //        setSupportActionBar(toolbar)
-  //      supportActionBar?.setDisplayShowTitleEnabled(false)
-=======
-        val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.main_toolbar)
-        setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayShowTitleEnabled(false)
->>>>>>> 4a15b87e79d9a8b2293744f55867230f8a243941
+//        supportActionBar?.setDisplayShowTitleEnabled(false)
 
         // Inisialisasi shared preferences
         sharedPrefs = getSharedPreferences("gallery", MODE_PRIVATE)
@@ -58,7 +46,6 @@ class MainActivity : AppCompatActivity() {
         // Setup RecyclerView
         recyclerView = findViewById(R.id.recycler_view)
         recyclerView.layoutManager = GridLayoutManager(this, 2)
-<<<<<<< HEAD
         adapter = ImageAdapter(this, dynamicImageList)
         recyclerView.adapter = adapter
 
@@ -70,22 +57,14 @@ class MainActivity : AppCompatActivity() {
 
         // FAB hapus muncul kalau ada yang dipilih
         adapter.setOnSelectionChangeListener { selectedCount ->
-            //fabDelete.visibility = if (selectedCount > 0) View.VISIBLE else View.GONE
+            fabDelete.visibility = if (selectedCount > 0) View.VISIBLE else View.GONE
         }
 
         // Tombol hapus gambar terpilih
         fabDelete.setOnClickListener {
             adapter.deleteSelectedItems()
             saveImages()
-
         }
-=======
-        recyclerView.adapter = ImageAdapter(dynamicImageList)
-
-        val fabMain: View = findViewById(R.id.fab_main)
-        val fabUpload: View = findViewById(R.id.fab_upload)
-        val fabCamera: View = findViewById(R.id.fab_camera)
->>>>>>> 4a15b87e79d9a8b2293744f55867230f8a243941
 
         fabMain.setOnClickListener {
             isFabOpen = !isFabOpen
@@ -131,11 +110,7 @@ class MainActivity : AppCompatActivity() {
                     val uri = data?.data
                     uri?.let {
                         dynamicImageList.add(ImageItem(it.toString()))
-<<<<<<< HEAD
                         adapter.notifyDataSetChanged()
-=======
-                        recyclerView.adapter = ImageAdapter(dynamicImageList)
->>>>>>> 4a15b87e79d9a8b2293744f55867230f8a243941
                         saveImages()
                     }
                 }
@@ -146,11 +121,7 @@ class MainActivity : AppCompatActivity() {
                         val path = MediaStore.Images.Media.insertImage(contentResolver, it, "CameraImage", null)
                         path?.let { imagePath ->
                             dynamicImageList.add(ImageItem(imagePath))
-<<<<<<< HEAD
                             adapter.notifyDataSetChanged()
-=======
-                            recyclerView.adapter = ImageAdapter(dynamicImageList)
->>>>>>> 4a15b87e79d9a8b2293744f55867230f8a243941
                             saveImages()
                         }
                     }
@@ -159,13 +130,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    // Fungsi menyimpan gambar ke SharedPreferences
     private fun saveImages() {
         val json = gson.toJson(dynamicImageList)
         sharedPrefs.edit().putString(PREF_KEY, json).apply()
     }
 
-    // Fungsi membaca ulang gambar dari SharedPreferences
     private fun loadSavedImages() {
         val json = sharedPrefs.getString(PREF_KEY, null)
         if (json != null) {
@@ -174,8 +143,4 @@ class MainActivity : AppCompatActivity() {
             dynamicImageList.addAll(savedList)
         }
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 4a15b87e79d9a8b2293744f55867230f8a243941
