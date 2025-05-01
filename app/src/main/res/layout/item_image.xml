@@ -6,6 +6,7 @@
     android:layout_margin="8dp"
     android:elevation="4dp"
     android:foreground="?attr/selectableItemBackground"
+<<<<<<< HEAD
     app:cardCornerRadius="16dp"
     app:cardElevation="4dp"
     app:strokeColor="#EEEEEE"
@@ -42,3 +43,14 @@
 
 
 </androidx.cardview.widget.CardView>
+=======
+    app:cardCornerRadius="16dp">
+
+    <ImageView
+        android:id="@+id/image_view"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:scaleType="centerCrop"
+        android:contentDescription="Gambar" />
+</androidx.cardview.widget.CardView>
+>>>>>>> 4a15b87e79d9a8b2293744f55867230f8a243941
